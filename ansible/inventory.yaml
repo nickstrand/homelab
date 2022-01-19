@@ -1,0 +1,20 @@
+servers:
+  children:
+    ubuntu:
+      children:
+        dev:
+          children:
+            kubernetes:
+              node[1:6]
+            individual:
+              ansible
+              dockerhost
+              backupsrv
+              sqlserv
+              sql
+              satisfactory
+        prod:
+          strandvision:
+            svstatus
+            svhestia
+            svserverplayer

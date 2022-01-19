@@ -19,6 +19,6 @@ all:
                 svstatus:
                 svhestia:
                 svserverplayer:
-             kubernetes:
-               hosts:
-                 node[1:6]:
+            kubernetes:
+              hosts:
+                node[1:6]:

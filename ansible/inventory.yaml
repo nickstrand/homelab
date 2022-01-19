@@ -1,20 +1,24 @@
-servers:
+all:
   children:
     ubuntu:
       children:
         dev:
           children:
-            kubernetes:
-              node[1:6]
             individual:
-              ansible
-              dockerhost
-              backupsrv
-              sqlserv
-              sql
-              satisfactory
+              hosts:
+                ansible:
+                dockerhost:
+                backupsrv:
+                sqlserv:
+                sql:
+                satisfactory:
         prod:
-          strandvision:
-            svstatus
-            svhestia
-            svserverplayer
+          children:
+            strandvision:
+              hosts:
+                svstatus:
+                svhestia:
+                svserverplayer:
+             kubernetes:
+               hosts:
+                 node[1:6]:

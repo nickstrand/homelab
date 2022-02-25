@@ -1,0 +1,20 @@
+---
+# Install terraform & GPG keys
+- name: Add GPG key to server
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: Add Repository
+  ansible.builtin.apt_repository:
+    repo: deb-src https://apt.releases.hashicorp.com focal main
+    state: present
+
+- name: Update packages
+  include_tasks: 
+    file: ../../updates/tasks/main.yaml
+
+- name: Install Terraform
+  apt:
+    name: terraform
+    state: present

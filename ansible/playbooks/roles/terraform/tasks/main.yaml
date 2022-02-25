@@ -1,0 +1,4 @@
+---
+# tasks file for terraform install
+- name: Add GPG key for terraform
+  include_tasks: terraform-install.yaml

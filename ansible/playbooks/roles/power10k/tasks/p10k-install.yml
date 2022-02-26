@@ -61,3 +61,15 @@
     insertafter: EOF
     marker_begin: "BEGIN P10K CONFIG FILE"
     marker_end: "END P10K CONFIG FILE"
+
+- name: Force colored terminal
+  blockinfile:
+    path: "{{ p10k_zshrc_config[zsh_plugin]['zsh_file'] }}"
+    block: |
+      export COLORTERM="gnome-terminal"
+      if [ "$TERM" = xterm -a "$COLORTERM" = "gnome-terminal" ]; then
+        TERM=gnome-256color
+      fi
+    insertafter: EOF
+    marker_begin: "BEGIN COLOR FORCE"
+    marker_end: "END COLOR FORCE"

@@ -1,2 +1,2 @@
-terraform/controller/.terraform.lock.hcl
-terraform/controller/.terraform/
+terraform/*/.terraform.lock.hcl
+terraform/*/.terraform/

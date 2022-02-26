@@ -40,7 +40,7 @@ data "vsphere_datastore" "datastore" {
 }
 
 data "vsphere_resource_pool" "pool" {
-  name          = "NstrandDev"
+  name          = "NstrandProduction"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 

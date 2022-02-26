@@ -1,0 +1,5 @@
+---
+- hosts: servers
+  roles:
+    - role: power10k
+    - role: updates

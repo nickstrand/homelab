@@ -2,11 +2,13 @@
 # update ubuntu servers 
 - name: Update apt-get repo and cache
   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+  become: true
   tags:
   - always
 
 - name: Upgrade all apt packages
   apt: upgrade=dist force_apt_get=yes
+  become: true
   tags:
   - always
 
@@ -26,6 +28,7 @@
     post_reboot_delay: 30
     test_command: uptime
   when: reboot_required_file.stat.exists
+  become: true
   tags:
   - restart
   - never

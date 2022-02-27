@@ -85,6 +85,7 @@ resource "vsphere_virtual_machine" "vm" {
         ipv4_address="192.168.63.200"
         ipv4_netmask=24
       }
+      ipv4_gateway="192.168.63.1"
     }
   }
   provisioner "local-exec" {

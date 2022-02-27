@@ -1,0 +1,7 @@
+---
+- name: Force local DNS
+  hosts: servers
+  gather_facts: false
+  become: true
+  roles:
+    - { role: linuxDNS }

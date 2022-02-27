@@ -1,3 +1,5 @@
 [servers]
 control
 awx
+[ansible]
+awx

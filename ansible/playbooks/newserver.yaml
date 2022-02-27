@@ -1,0 +1,8 @@
+
+---
+- hosts: servers
+  roles:
+    - role: connectionWait
+    - role: linuxDNS
+    - role: power10k
+    - role: updates

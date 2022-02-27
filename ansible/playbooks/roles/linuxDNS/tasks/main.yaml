@@ -1,0 +1,41 @@
+- name: make sure line 'dns=none' is set in /etc/NetworkManager/NetworkManager.conf
+  ini_file:
+    path: /etc/NetworkManager/NetworkManager.conf
+    state: present
+    no_extra_spaces: yes
+    section: main
+    option: dns
+    value: none
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify:
+    - reload Netplan
+
+- name: deploy resolv.conf template
+  template:
+    src: templates/resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify:
+    - reload Netplan
+
+- name: Write nameservers to file
+  lineinfile:
+    path: /etc/netplan/99-netcfg-vmware.yaml
+    state: present
+    insertafter: 'dhcp4'
+    line: "      nameservers:"
+
+- name: dns servers
+  lineinfile:
+    path: /etc/netplan/99-netcfg-vmware.yaml
+    state: present
+    insertafter: 'nameservers'
+    line: "        addresses: [192.168.63.1, 192.168.1.1, 8.8.8.8]"
+  notify:
+    - reload Netplan

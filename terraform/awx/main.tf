@@ -1,7 +1,7 @@
 # Provider
-
 variable "vsphere_server" {
   type = string
+  default = "192.168.1.35"
 }
 variable "vsphere_user" {
   type = string
@@ -40,7 +40,7 @@ data "vsphere_datastore" "datastore" {
 }
 
 data "vsphere_resource_pool" "pool" {
-  name          = "NstrandProduction"
+  name          = "NstrandDev"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 
@@ -55,12 +55,13 @@ data "vsphere_virtual_machine" "template" {
 }
 
 resource "vsphere_virtual_machine" "vm" {
-  name             = "control"
+  name             = "awx"
   resource_pool_id = "${data.vsphere_resource_pool.pool.id}"
   datastore_id     = "${data.vsphere_datastore.datastore.id}"
+  wait_for_guest_net_timeout = 0
 
   num_cpus = 4
-  memory   = 4096
+  memory   = 8192
   guest_id = "${data.vsphere_virtual_machine.template.guest_id}"
 
   network_interface {
@@ -76,13 +77,18 @@ resource "vsphere_virtual_machine" "vm" {
 
     customize {
       linux_options {
-        host_name = "control"
+        host_name = "awx"
         domain    = "strand.family"
       }
 
       network_interface {
+        ipv4_address="192.168.63.200"
+        ipv4_netmask=24
       }
-
+      ipv4_gateway="192.168.63.1"
     }
+  }
+  provisioner "local-exec" {
+    command = "cd ~/git/homelab/ansible/; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory -l awx playbooks/newserver.yaml"
   }
 }

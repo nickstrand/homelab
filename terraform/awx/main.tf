@@ -58,9 +58,10 @@ resource "vsphere_virtual_machine" "vm" {
   name             = "awx"
   resource_pool_id = "${data.vsphere_resource_pool.pool.id}"
   datastore_id     = "${data.vsphere_datastore.datastore.id}"
+  wait_for_guest_net_timeout = 0
 
   num_cpus = 4
-  memory   = 4096
+  memory   = 8192
   guest_id = "${data.vsphere_virtual_machine.template.guest_id}"
 
   network_interface {
@@ -81,8 +82,12 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
+        ipv4_address="192.168.63.200"
+        ipv4_netmask=24
       }
-
     }
+  }
+  provisioner "local-exec" {
+    command = "cd ~/git/homelab/ansible/; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory -l awx playbooks/newserver.yaml"
   }
 }

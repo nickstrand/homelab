@@ -3,4 +3,4 @@
   become: true
   roles:
     - role: k3s-single
-#    - role: awx
+    - role: awx

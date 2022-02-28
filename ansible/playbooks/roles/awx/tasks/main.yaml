@@ -1,0 +1,61 @@
+- name: Install AWX requirements
+  package:
+    name: "{{ awx_dependencies }}"
+    state: present
+  become: true
+  when: awx_dependencies
+
+- name: Clone operator deployment
+  shell:
+    cmd: git clone https://github.com/ansible/awx-operator.git
+    creates: awx-operator/
+
+- name: Create namespace for AWX Operator
+  shell:
+    cmd: kubectl delete ns $NAMESPACE; kubectl create ns {{ NAMESPACE }}; touch .nscreated
+    creates: .nscreated
+
+- name: Set Default Context
+  shell:
+    cmd: kubectl config set-context --current --namespace={{ NAMESPACE }}
+
+- name: Checkout latest version
+  shell:
+    chdir: awx-operator/
+    cmd: |
+      export RELEASE_TAG=`curl -s https://api.github.com/repos/ansible/awx-operator/releases/latest | grep tag_name | cut -d '"' -f 4`
+      echo $RELEASE_TAG
+      git checkout $RELEASE_TAG
+
+- name: Deploy to cluster
+  become: true
+  shell:
+    chdir: awx-operator/
+    cmd: make deploy
+
+- name: Copy pvc template
+  template:
+    src: templates/awx-pvc.yaml
+    dest: awx-pvc.yaml
+    owner: nstrand
+    group: wheel
+    mode: 0644
+    backup: yes
+
+- name: Create PVC for AWX
+  shell: 
+    cmd: touch .pvccreated; cat awx-pvc.yaml | kubectl apply -f -
+    creates: .pvccreated
+
+- name: Copy deployment template
+  template:
+    src: templates/awx-deploy.yaml
+    dest: awx-deploy.yaml
+    owner: nstrand
+    group: wheel
+    mode: 0644
+    backup: yes
+
+- name: Apply awx-deploy
+  shell: 
+    cmd: kubectl apply -f awx-deploy.yaml

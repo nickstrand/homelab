@@ -1,0 +1,8 @@
+---
+awx_dependencies:
+  - git
+  - build-essential
+  - curl
+  - jq
+namespace:
+  - awx

@@ -15,10 +15,3 @@
   ansible.builtin.file:
     path: /etc/rancher/k3s/k3s.yaml
     mode: '0644'
-
-- name: Install git and build-essential
-  package:
-    name: "{{ awx_dependencies }}"
-    state: present
-  become: true
-  when: awx_dependencies

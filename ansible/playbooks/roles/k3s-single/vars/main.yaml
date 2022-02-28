@@ -1,4 +1,0 @@
----
-awx_dependencies:
-  - git
-  - build-essential

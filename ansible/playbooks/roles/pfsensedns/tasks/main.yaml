@@ -4,8 +4,7 @@
     method: POST
   ignore_errors: yes
 
-- name: Reload DNS configuration
+- name: Reload DNS
   uri:
     url: http://{{ lookup('env', 'pfhost') }}/api/v1/services/unbound/apply?client-token={{ lookup('env', 'pftoken') }}&client-id={{ lookup('env', 'pfid') }}
     method: POST
-    status_code: 200

@@ -1,0 +1,11 @@
+- name: Add alias to pfsense
+  uri:
+    url: http://{{ lookup('env', 'pfhost') }}/api/v1/services/unbound/host_override?client-token={{ lookup('env', 'pftoken') }}&client-id={{ lookup('env', 'pfid') }}&host={{ inventory_hostname_short }}&domain=strand.family&ip={{ ansible_default_ipv4.address }}&descr=AnsibleAPIAddition
+    method: POST
+  ignore_errors: yes
+
+- name: Reload DNS configuration
+  uri:
+    url: http://{{ lookup('env', 'pfhost') }}/api/v1/services/unbound/apply?client-token={{ lookup('env', 'pftoken') }}&client-id={{ lookup('env', 'pfid') }}
+    method: POST
+    status_code: 200

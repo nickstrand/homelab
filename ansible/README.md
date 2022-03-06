@@ -2,8 +2,9 @@
 ```sudo apt-get install ansible```
 
 # Run Playbooks
-```ansible-playbook -i hosts -K playbooks/powerlevel10K.yaml```
-```ansible-playbook -i hosts -K playbooks/updates.yaml --tags restart```
+- `ansible-playbook -i hosts -K playbooks/powerlevel10K.yaml`
+- `ansible-playbook -i hosts -K playbooks/updates.yaml --tags restart`
+- `ansible-playbook -i hosts -K playbooks/newserver.yaml`
 
 # AWX Playbook additions
 To get the admin password

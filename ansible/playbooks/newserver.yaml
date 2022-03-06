@@ -6,3 +6,4 @@
     - role: linuxDNS
     - role: power10k
     - role: updates
+    - role: pfsensedns

@@ -3,4 +3,4 @@
 **/terraform.tfstate
 **/terraform.tfstate.backup
 **/*.tf.save*
-eks/prod/**
+eks/prod/*

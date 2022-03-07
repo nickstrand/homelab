@@ -7,10 +7,10 @@ spec:
     cni: cilium
     pods:
       cidrBlocks:
-      - 192.168.65.0/24
+      - 10.97.0.0/16
     services:
       cidrBlocks:
-      - 10.96.0.0/12
+      - 10.96.0.0/16
   controlPlaneConfiguration:
     count: 2
     endpoint:

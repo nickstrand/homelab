@@ -1,0 +1,97 @@
+providers:
+  - name: "docker"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/infrastructure-docker/v1.0.2+27b4eae/infrastructure-components-development.yaml"
+    type: "InfrastructureProvider"
+    version: "v1.0.2+27b4eae"
+  - name: "vsphere"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/infrastructure-vsphere/v1.0.1+2435934/infrastructure-components.yaml"
+    type: "InfrastructureProvider"
+    version: "v1.0.1+2435934"
+  - name: "aws"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/infrastructure-aws/v0.6.4+70907ef/infrastructure-components.yaml"
+    type: "InfrastructureProvider"
+    version: "v0.6.4+70907ef"
+  - name: "cluster-api"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/cluster-api/v1.0.2+c1f8c13/core-components.yaml"
+    type: "CoreProvider"
+    version: "v1.0.2+c1f8c13"
+  - name: "kubeadm"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/control-plane-kubeadm/v1.0.2+2b94d76/control-plane-components.yaml"
+    type: "ControlPlaneProvider"
+    version: "v1.0.2+2b94d76"
+  - name: "kubeadm"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/bootstrap-kubeadm/v1.0.2+bb954e1/bootstrap-components.yaml"
+    type: "BootstrapProvider"
+    version: "v1.0.2+bb954e1"
+  - name: "etcdadm-bootstrap"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/bootstrap-etcdadm-bootstrap/v1.0.0-rc4+b9ee67d/bootstrap-components.yaml"
+    type: "BootstrapProvider"
+    version: "v1.0.0-rc4+b9ee67d"
+  - name: "etcdadm-controller"
+    url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/bootstrap-etcdadm-controller/v1.0.0-rc4+f8caa60/bootstrap-components.yaml"
+    type: "BootstrapProvider"
+    version: "v1.0.0-rc4+f8caa60"
+
+overridesFolder: /home/nstrand/git/homelab/eks/prod/generated/overrides
+images:
+  cert-manager/cert-manager-cainjector:
+    repository: public.ecr.aws/eks-anywhere/jetstack
+    tag: v1.5.3-eks-a-6
+  cert-manager/cert-manager-controller:
+    repository: public.ecr.aws/eks-anywhere/jetstack
+    tag: v1.5.3-eks-a-6
+  cert-manager/cert-manager-webhook:
+    repository: public.ecr.aws/eks-anywhere/jetstack
+    tag: v1.5.3-eks-a-6
+  cluster-api/cluster-api-controller:
+    repository: public.ecr.aws/eks-anywhere/kubernetes-sigs/cluster-api
+    tag: v1.0.2-eks-a-6
+  cluster-api/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.1
+  bootstrap-kubeadm/kubeadm-bootstrap-controller:
+    repository: public.ecr.aws/eks-anywhere/kubernetes-sigs/cluster-api
+    tag: v1.0.2-eks-a-6
+  bootstrap-kubeadm/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.1
+  control-plane-kubeadm/kubeadm-control-plane-controller:
+    repository: public.ecr.aws/eks-anywhere/kubernetes-sigs/cluster-api
+    tag: v1.0.2-eks-a-6
+  control-plane-kubeadm/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.1
+  infrastructure-aws/cluster-api-aws-controller:
+    repository: public.ecr.aws/eks-anywhere/kubernetes-sigs/cluster-api-provider-aws
+    tag: v0.6.4-eks-a-6
+  infrastructure-aws/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.1
+  infrastructure-vsphere/manager:
+    repository: public.ecr.aws/eks-anywhere/kubernetes-sigs/cluster-api-provider-vsphere/release
+    tag: v1.0.1-eks-a-6
+  infrastructure-vsphere/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.8.0
+  infrastructure-docker/capd-manager:
+    repository: public.ecr.aws/eks-anywhere/kubernetes-sigs/cluster-api
+    tag: v1.0.2-eks-a-6
+  infrastructure-docker/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.0
+  bootstrap-etcdadm-bootstrap/etcdadm-bootstrap-provider:
+    repository: public.ecr.aws/eks-anywhere/mrajashree
+    tag: v1.0.0-rc4-eks-a-6
+  bootstrap-etcdadm-bootstrap/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.0
+  bootstrap-etcdadm-controller/etcdadm-controller:
+    repository: public.ecr.aws/eks-anywhere/mrajashree
+    tag: v1.0.0-rc4-eks-a-6
+  bootstrap-etcdadm-controller/kube-rbac-proxy:
+    repository: public.ecr.aws/eks-anywhere/brancz
+    tag: v0.8.0-eks-a-6 #org one is v0.4.0
+cert-manager:
+  timeout: 30m
+  url: "/home/nstrand/git/homelab/eks/prod/generated/overrides/cert-manager/v1.5.3+66e1acc/cert-manager.yaml"
+  version: v1.5.3+66e1acc

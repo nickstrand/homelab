@@ -1,0 +1,106 @@
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: Cluster
+metadata:
+  name: prod
+spec:
+  clusterNetwork:
+    cni: cilium
+    pods:
+      cidrBlocks:
+      - 192.168.65.0/24
+    services:
+      cidrBlocks:
+      - 10.96.0.0/12
+  controlPlaneConfiguration:
+    count: 2
+    endpoint:
+      host: "192.168.63.151"
+    machineGroupRef:
+      kind: VSphereMachineConfig
+      name: prod-cp
+  datacenterRef:
+    kind: VSphereDatacenterConfig
+    name: prod
+  externalEtcdConfiguration:
+    count: 3
+    machineGroupRef:
+      kind: VSphereMachineConfig
+      name: prod-etcd
+  kubernetesVersion: "1.21"
+  managementCluster:
+    name: prod
+  workerNodeGroupConfigurations:
+  - count: 2
+    machineGroupRef:
+      kind: VSphereMachineConfig
+      name: prod
+    name: md-0
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereDatacenterConfig
+metadata:
+  name: prod
+spec:
+  datacenter: "Datacenter"
+  insecure: false
+  network: "LANServers"
+  server: "192.168.1.35"
+  thumbprint: "0F:32:5B:E8:B7:41:9D:D8:B8:2D:26:18:83:C6:A8:D6:C0:1F:74:AD"
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereMachineConfig
+metadata:
+  name: prod-cp
+spec:
+  datastore: "r720"
+  diskGiB: 25
+  folder: "Kubernetes"
+  memoryMiB: 8192
+  numCPUs: 2
+  osFamily: bottlerocket
+  resourcePool: "NstrandDev"
+  users:
+  - name: ec2-user
+    sshAuthorizedKeys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzbMQ8RdyXC9XiCQxbSU5yPmYlZ03+s1HThyij+6yTd/s3qiPezxvx33pTfMuwlM0mBGgi1TvtzEkj990+8VC7OCfLUZHmCCpuKYSzaMFoA6GzptHRWVNNUxYbrjiYUKsdC2sG36/IdkCKoGMW/pZDVsYO+pTaIUOGPJw8wp/U+KkCJXJSVfiaKCyREAt9SGWrLO1yhVkouHkJrTKaWCusdYiOp/ofEdVLHLdTIS6A0MK7PzWrjyByp0nOP04wFaJ/mqfsCdGLiGqSxw/JiEPBHvRodUGtCZtqpjXtqUh0lXsu0w5uqbmdlNA1xiNm4ZxVxXRAowQfiH2vj6yu+yb9
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereMachineConfig
+metadata:
+  name: prod
+spec:
+  datastore: "r720"
+  diskGiB: 25
+  folder: "Kubernetes"
+  memoryMiB: 8192
+  numCPUs: 2
+  osFamily: bottlerocket
+  resourcePool: "NstrandDev"
+  users:
+  - name: ec2-user
+    sshAuthorizedKeys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzbMQ8RdyXC9XiCQxbSU5yPmYlZ03+s1HThyij+6yTd/s3qiPezxvx33pTfMuwlM0mBGgi1TvtzEkj990+8VC7OCfLUZHmCCpuKYSzaMFoA6GzptHRWVNNUxYbrjiYUKsdC2sG36/IdkCKoGMW/pZDVsYO+pTaIUOGPJw8wp/U+KkCJXJSVfiaKCyREAt9SGWrLO1yhVkouHkJrTKaWCusdYiOp/ofEdVLHLdTIS6A0MK7PzWrjyByp0nOP04wFaJ/mqfsCdGLiGqSxw/JiEPBHvRodUGtCZtqpjXtqUh0lXsu0w5uqbmdlNA1xiNm4ZxVxXRAowQfiH2vj6yu+yb9
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereMachineConfig
+metadata:
+  name: prod-etcd
+spec:
+  datastore: "r720"
+  diskGiB: 25
+  folder: "Kubernetes"
+  memoryMiB: 8192
+  numCPUs: 2
+  osFamily: bottlerocket
+  resourcePool: "NstrandDev"
+  users:
+  - name: ec2-user
+    sshAuthorizedKeys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzbMQ8RdyXC9XiCQxbSU5yPmYlZ03+s1HThyij+6yTd/s3qiPezxvx33pTfMuwlM0mBGgi1TvtzEkj990+8VC7OCfLUZHmCCpuKYSzaMFoA6GzptHRWVNNUxYbrjiYUKsdC2sG36/IdkCKoGMW/pZDVsYO+pTaIUOGPJw8wp/U+KkCJXJSVfiaKCyREAt9SGWrLO1yhVkouHkJrTKaWCusdYiOp/ofEdVLHLdTIS6A0MK7PzWrjyByp0nOP04wFaJ/mqfsCdGLiGqSxw/JiEPBHvRodUGtCZtqpjXtqUh0lXsu0w5uqbmdlNA1xiNm4ZxVxXRAowQfiH2vj6yu+yb9
+
+---
+
